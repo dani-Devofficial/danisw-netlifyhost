@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>Dani Developer - API  Excel Fileviewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #0066cc;
+    }
+
+    code {
+      background-color: #eef3f8;
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: block;
+      margin: 10px 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #e60000;
+    }
+
+    p {
+      margin-bottom: 1.5em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📄 Dani Developer - API Fileviewer 사용 안내</h1>
+
+  <p>
+    ✅ <strong>1단계</strong> - iframe에 아래 주소를 넣어주세요. (파라미터 수정 필요)
+    <code>https://danisw.netlify.app/api/fileviewer_api.html?type=excel&amp;fileurl=파일URL</code>
+  </p>
+
+  <p>
+    ✅ <strong>2단계</strong> - 끝입니다! 🎉<br><br>
+    ⚠️ <strong>주의사항</strong><br>
+    파일 URL은 <u>유니코드(Percent Encoding)</u> 형식으로 작성하는 걸 추천합니다. (특수문자 오류 방지)
+  </p>
+
+  <p>
+    💬 <strong>예시 iframe 코드</strong>
+    <code>&lt;iframe src="https://danisw.netlify.app/api/fileviewer_api.html?type=excel&amp;fileurl=https%3A%2F%2Fexample.com%2Fexcel.html"&gt;&lt;/iframe&gt;</code>
+  </p>
+
+  <p>
+    <a href="https://dani.netlify.app/error_formsfree.html">
+      <button>🚨 오류 제보하기</button>
+    </a>
+  </p>
+
+</body>
+</html>

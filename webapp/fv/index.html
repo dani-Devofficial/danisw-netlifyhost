@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Onlinefv</title>
+  <meta name="description" content="DaniFv는 온라인에서 워드, 엑셀 등의 파일을 볼 수 있는 사이트입니다.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
+    }
+    .container {
+      max-width: 400px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 32px;
+      box-sizing: border-box;
+    }
+    h3 {
+      margin: 0 0 2% 0;
+      font-size: 1.4rem;
+      color: #222;
+      text-align: center;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: row;   /* 가로 정렬 */
+      gap: 24px;             /* 버튼 사이 간격 */
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .circle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.2rem;   /* h2.5 크기 (2.5rem)보다 약간 크게, 패딩 여유 */
+      height: 3.2rem;
+      border-radius: 50%;  /* 원형 */
+      background: #e9f0ff;
+      box-shadow: 0 2px 8px rgba(79, 140, 255, 0.15);
+      border: none;
+      transition: box-shadow 0.2s, background 0.2s;
+      cursor: pointer;
+      padding: 0;
+      text-align: center;
+    }
+    .circle-btn:hover {
+      background: #d0e1ff;
+      box-shadow: 0 4px 16px rgba(79,140,255,0.25);
+    }
+    .circle-btn img {
+      width: 2.5rem;   /* h2.5 크기 */
+      height: 2.5rem;
+      border-radius: 50%;  /* 이미지도 원형 */
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>Dani fv</h3>
+    <div class="btn-group">
+      <a href="./wordviewer.html" class="circle-btn">
+        <img src="word.png" alt="워드 뷰어" />
+      </a>
+      <a href="./excelviewer.html" class="circle-btn">
+        <img src="excel.png" alt="엑셀 뷰어" />
+      </a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>용돈기입장</title>
+  <style>
+    body { font-family: sans-serif; max-width: 500px; margin: 2rem auto; }
+    h2 { text-align: center; }
+    form { display: flex; gap: 8px; margin-bottom: 14px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 22px; }
+    th, td { border: 1px solid #ccc; text-align: center; padding: 6px; }
+    input[type="text"], input[type="number"], input[type="date"] { width: 100px; }
+    button { min-width: 50px; }
+  </style>
+</head>
+<body>
+  <h2>용돈기입장</h2>
+  <form id="entry-form" autocomplete="off">
+    <input type="date" id="date" required />
+    <input type="text" id="desc" placeholder="내용" required />
+    <input type="number" id="amount" placeholder="금액" required />
+    <button type="submit">추가</button>
+  </form>
+  <table>
+    <thead>
+      <tr><th>날짜</th><th>내용</th><th>금액(원)</th></tr>
+    </thead>
+    <tbody id="entries-body"></tbody>
+  </table>
+  <canvas id="chart"></canvas>
+  <script>
+    const STORAGE_KEY = "allowance_book_entries";
+    function save(entries) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+    function load() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }
+    function renderTable(entries) {
+      const tbody = document.getElementById("entries-body");
+      tbody.innerHTML = "";
+      entries.forEach(e => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${e.date}</td><td>${e.description}</td><td>${e.amount}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+    function renderChart(entries) {
+      const ctx = document.getElementById("chart").getContext("2d");
+      const dates = Array.from(new Set(entries.map(e => e.date))).sort();
+      const amounts = dates.map(
+        d => entries.filter(e => e.date === d).reduce((sum, e) => sum + Number(e.amount), 0)
+      );
+      if (window.myChart) window.myChart.destroy();
+      window.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: dates,
+          datasets: [{
+            label: "일별 합계(원)",
+            data: amounts,
+            borderColor: "rgba(54, 162, 235, 1)",
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            tension: 0.2,
+            fill: true,
+            pointRadius: 4,
+            pointBackgroundColor: "rgba(54, 162, 235, 1)"
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+    // Init
+    let entries = load();
+    renderTable(entries);
+    renderChart(entries);
+    document.getElementById("entry-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const date = document.getElementById("date").value;
+      const description = document.getElementById("desc").value;
+      const amount = document.getElementById("amount").value;
+      if (!date || !description || !amount) return;
+      entries.push({ date, description, amount: Number(amount) });
+      save(entries);
+      renderTable(entries);
+      renderChart(entries);
+      this.reset();
+    });
+  </script>
+</body>
+</html>
