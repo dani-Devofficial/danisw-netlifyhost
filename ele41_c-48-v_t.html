@@ -1,191 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Video Player - Auto Hide</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #141e30, #243b55);
-      font-family: "Inter", sans-serif;
-    }
-
-    .player {
-      width: 85%;
-      max-width: 950px;
-      border-radius: 18px;
-      overflow: hidden;
-      background: #000;
-      position: relative;
-    }
-
-    video {
-      width: 100%;
-      display: block;
-      background: #000;
-    }
-
-    .controls {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: rgba(30, 30, 30, 0.55);
-      backdrop-filter: blur(10px);
-      transition: opacity 0.3s;
-    }
-
-    .controls.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .left-controls, .right-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    button, select, input[type=range] {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: #fff;
-      font-size: 18px;
-      transition: 0.2s;
-    }
-
-    button:hover, select:hover {
-      transform: scale(1.1);
-    }
-
-    input[type=range] {
-      -webkit-appearance: none;
-      height: 4px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.4);
-      width: 200px;
-    }
-
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #fff;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    select {
-      padding: 4px 8px;
-      border-radius: 8px;
-      font-size: 14px;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 TV 임베드</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        iframe {
+            width: 800px;
+            height: 450px;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="player" id="player">
-    <video id="video">
-      <source src="https://www.danisw.netlify.app/ele41_c48.mp4" type="video/mp4">
-      지원하지 않는 브라우저입니다.
-    </video>
-
-    <div class="controls" id="controls">
-      <div class="left-controls">
-        <button id="playPause">▶️</button>
-        <input type="range" id="seekBar" value="0">
-      </div>
-      <div class="right-controls">
-        <select id="speed">
-          <option value="0.5">0.5x</option>
-          <option value="1" selected>1x</option>
-          <option value="1.5">1.5x</option>
-          <option value="2">2x</option>
-        </select>
-        <button id="fullScreen">⛶</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const video = document.getElementById("video");
-    const playPauseBtn = document.getElementById("playPause");
-    const seekBar = document.getElementById("seekBar");
-    const speedSelect = document.getElementById("speed");
-    const fullScreenBtn = document.getElementById("fullScreen");
-    const controls = document.getElementById("controls");
-    const player = document.getElementById("player");
-
-    // ▶️ 재생 / ⏸️ 일시정지
-    playPauseBtn.addEventListener("click", () => {
-      if (video.paused) {
-        video.play();
-        playPauseBtn.textContent = "⏸️";
-      } else {
-        video.pause();
-        playPauseBtn.textContent = "▶️";
-      }
-    });
-
-    // 📊 시크바 업데이트
-    video.addEventListener("timeupdate", () => {
-      const value = (100 / video.duration) * video.currentTime;
-      seekBar.value = value;
-    });
-
-    // 📊 시크바 이동
-    seekBar.addEventListener("input", () => {
-      const time = video.duration * (seekBar.value / 100);
-      video.currentTime = time;
-    });
-
-    // ⚡ 속도 조절
-    speedSelect.addEventListener("change", () => {
-      video.playbackRate = speedSelect.value;
-    });
-
-    // ⛶ 전체화면
-    fullScreenBtn.addEventListener("click", () => {
-      if (video.requestFullscreen) {
-        video.requestFullscreen();
-      } else if (video.webkitRequestFullscreen) {
-        video.webkitRequestFullscreen();
-      } else if (video.msRequestFullscreen) {
-        video.msRequestFullscreen();
-      }
-    });
-
-    // 🎬 자동 컨트롤 숨김
-    let hideTimeout;
-    const showControls = () => {
-      controls.classList.remove("hide");
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        if (!video.paused) { // 재생 중일 때만 숨김
-          controls.classList.add("hide");
-        }
-      }, 3000);
-    };
-
-    // 마우스/터치 이벤트 감지
-    player.addEventListener("mousemove", showControls);
-    player.addEventListener("click", showControls);
-    player.addEventListener("touchstart", showControls);
-
-    // 재생 시작할 때 컨트롤 자동 숨김 시작
-    video.addEventListener("play", showControls);
-  </script>
+    <iframe src="https://tv.naver.com/embed/86009099" allowfullscreen></iframe>
 </body>
 </html>
