@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>네이버 로그인 예제</title>
+<style>
+    body { display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; background:#f0f0f0; }
+    button { padding:10px 20px; font-size:16px; cursor:pointer; background:#03C75A; color:white; border:none; border-radius:5px; margin-bottom:20px; }
+    #profile { font-size:18px; }
+</style>
+</head>
+<body>
+
+<button id="naver-login">네이버 로그인</button>
+<div id="profile"></div>
+
+<script>
+const CLIENT_ID = "eUeCwrQZOvWGohhW5tza"; // 네이버에서 발급받은 ID
+const REDIRECT_URI = "https://YOUR_ONLINE_URL/callback.html"; // 예: Netlify, GitHub Pages URL
+
+// 로그인 버튼 클릭
+document.getElementById("naver-login").addEventListener("click", () => {
+    const state = Math.random().toString(36).substring(2,15);
+    const naverAuthUrl = 
+        `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=${state}`;
+    window.location.href = naverAuthUrl;
+});
+</script>
+
+</body>
+</html>
